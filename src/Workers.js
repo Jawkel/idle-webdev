@@ -1,7 +1,7 @@
 export const Workers = [
   {
     name: "UI",
-    gain: 1, // $20/h
+    gain: 10, // $20/h
     gainTime: 1,
     gainStep: 1.05,
     avatar: "/images/ui.png",
