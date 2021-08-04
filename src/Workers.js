@@ -1,7 +1,7 @@
-const Workers = [
+export const Workers = [
   {
     name: "UI",
-    gain: 100, // $20/h
+    gain: 1, // $20/h
     gainTime: 1,
     gainStep: 1.05,
     avatar: "/images/ui.png",
@@ -32,7 +32,7 @@ const Workers = [
     gainTime: 5,
     gainStep: 1.11,
     avatar: "/images/ux.png",
-    task: "Writing code",
+    task: "User storying",
     cost: 5000,
   },
   {
@@ -40,8 +40,8 @@ const Workers = [
     gain: 50, // $47/h
     gainTime: 10,
     gainStep: 1.11,
-    avatar: "/images/ux.png",
-    task: "Writing code",
+    avatar: "/images/back.png",
+    task: "Node JSing",
     cost: 10000,
   },
   {
@@ -49,8 +49,8 @@ const Workers = [
     gain: 100, // $47/h
     gainTime: 12,
     gainStep: 1.11,
-    avatar: "/images/ux.png",
-    task: "Writing code",
+    avatar: "/images/fullstack.png",
+    task: "Juggling",
     cost: 25000,
   },
   {
@@ -58,8 +58,8 @@ const Workers = [
     gain: 1000, // $47/h
     gainTime: 15,
     gainStep: 1.11,
-    avatar: "/images/ux.png",
-    task: "Writing code",
+    avatar: "/images/agency.png",
+    task: "Acquiring Clients",
     cost: 100000,
   },
   {
@@ -67,10 +67,37 @@ const Workers = [
     gain: 10000, // $47/h
     gainTime: 30,
     gainStep: 1.11,
-    avatar: "/images/ux.png",
-    task: "Writing code",
+    avatar: "/images/cloud.png",
+    task: "Jeff Bossing",
     cost: 1000000,
   },
 ];
 
-export default Workers;
+export const Steps = [
+  {
+    title: "Junior",
+    limit: 100,
+    timeDiviser: 1,
+  },
+  {
+    title: "Regular",
+    limit: 250,
+    timeDiviser: 1.5,
+  },
+  {
+    title: "Confirmed",
+    limit: 500,
+    timeDiviser: 2,
+  },
+  {
+    title: "Senior",
+    limit: 1000,
+    timeDiviser: 2.5,
+  },
+  {
+    title: "Guru",
+    limit: 5000,
+    timeDiviser: 4,
+  },
+];
+// export default Workers;

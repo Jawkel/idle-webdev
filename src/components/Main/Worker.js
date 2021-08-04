@@ -1,22 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components/macro";
+import Decimal from "break_infinity.js";
+import { Steps } from "../../Workers";
 
 const Worker = ({
   worker,
   stats,
-  //   getScore,
   incrementScore,
   buy,
   score,
   buyWorker,
+  unlock,
 }) => {
   const [click, setClick] = useState(false);
-  const buyDisplay = buy === "Max" ? 100 - stats.nb : buy;
-  const price = worker.cost * buyDisplay;
 
-  const handleIncrement = (gain) => {
-    incrementScore(gain);
-  };
+  useEffect(() => {
+    let stat = { ...stats };
+    stat.unlock = true;
+    unlock(worker.name, stat);
+  }, []);
+
+  let buyDisplay =
+    buy === "Max"
+      ? Math.min(
+          Math.floor(score / new Decimal(worker.cost)),
+          Steps[stats.step].limit - stats.nb
+        )
+      : buy;
+  buyDisplay = buyDisplay === 0 ? 1 : buyDisplay;
+  const price = worker.cost * buyDisplay;
+  const scoreRef = useRef(score);
+  scoreRef.current = score;
+
+  //   const handleIncrement = (gain) => {
+  //     incrementScore(gain);
+  //   };
   return (
     <WorkerStyled>
       <Img
@@ -24,22 +42,39 @@ const Worker = ({
           if (click || (stats && stats.nb === 0)) return;
           setClick(true);
           setTimeout(() => {
-            handleIncrement(worker.gain * stats.nb);
+            incrementScore(scoreRef.current, worker.gain * stats.nb);
             setClick(false);
-          }, worker.gainTime * 1000);
+          }, (worker.gainTime / Steps[stats.step].timeDiviser) * 1000);
         }}
       >
-        <Nb>{stats.nb} / 100</Nb>
+        <Title>
+          {Steps[stats.step].title} {worker.name}
+        </Title>
+        <Nb>
+          {stats.nb} / {Steps[stats.step].limit}
+        </Nb>
         <img src={worker.avatar} alt="Worker" width="100%" height="100%" />
       </Img>
       <Operation>
-        <Task className={click ? "working" : ""} timing={worker.gainTime}>
+        <Task
+          className={click ? "working" : ""}
+          timing={worker.gainTime / Steps[stats.step].timeDiviser}
+        >
           {worker.task}
         </Task>
         <Buy
-          canBuy={price <= score}
-          disabled={price > score}
-          onClick={() => buyWorker(worker.name, worker.cost)}
+          canBuy={
+            price <= score &&
+            stats.step < 4 &&
+            stats.nb !== Steps[stats.step].limit
+          }
+          disabled={
+            price > score ||
+            (stats.step === 4 && stats.nb === Steps[stats.step].limit)
+          }
+          onClick={() => {
+            buyWorker(worker.name, worker.cost, buyDisplay);
+          }}
         >
           <span>Buy {buyDisplay}</span>
           <span>${price}</span>
@@ -103,8 +138,19 @@ const Task = styled.div`
   }
 `;
 
+const Title = styled.span`
+  position: absolute;
+  width: fit-content;
+  top: -5%;
+  left: 50%;
+  padding: 5px 15px;
+  font-size: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateX(-50%);
+`;
 const Nb = styled.span`
   position: absolute;
+  width: fit-content;
   bottom: -17%;
   left: 50%;
   transform: translateX(-50%);
