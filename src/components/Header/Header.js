@@ -1,26 +1,30 @@
 import React from "react";
 import styled from "styled-components/macro";
 
-const Header = ({ score, buy, setBuy }) => {
-  const buyRange = [1, 10, 50, "Max"];
+const Header = ({score, buy, setBuy}) => {
+    const buyRange = [1, 10, 50, "Max"];
 
-  const handleBuy = () => {
-    let index = buyRange.indexOf(buy);
-    index = index === buyRange.length - 1 ? 0 : index + 1;
-    setBuy(buyRange[index]);
-  };
+    const handleBuy = () => {
+        let index = buyRange.indexOf(buy);
+        index = index === buyRange.length - 1 ? 0 : index + 1;
+        setBuy(buyRange[index]);
+    };
 
-  return (
-    <HeaderStyled>
-      <h2>${score}</h2>
-      <button onClick={handleBuy}>Buy {buy}</button>
-    </HeaderStyled>
-  );
+    return (
+        <HeaderStyled>
+            <h2>${score}</h2>
+            <button onClick={handleBuy}>Buy {buy}</button>
+        </HeaderStyled>
+    );
 };
 
 export default Header;
 
 const HeaderStyled = styled.div`
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,6 +35,7 @@ const HeaderStyled = styled.div`
   h2 {
     margin-left: 3.5rem;
   }
+
   button {
     margin-right: 3.5rem;
     padding: 5px 10px;
