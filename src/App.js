@@ -10,6 +10,7 @@ function App() {
 
 
     const incrementScore = (score2, gain) => {
+        console.log(gain);
         setScore(score2.plus(gain).floor());
     };
 

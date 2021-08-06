@@ -1,7 +1,7 @@
 export const Workers = [
     {
         name: "UI",
-        gain: 1, // $20/h
+        gain: 2, // $20/h
         gainTime: 1,
         gainStep: 1.05,
         avatar: "/images/ui.png",
@@ -10,7 +10,7 @@ export const Workers = [
     },
     {
         name: "Dev Front",
-        gain: 4, // $35/h
+        gain: 8, // $35/h
         gainTime: 2,
         gainStep: 1.1,
         avatar: "/images/dev_front.png",
@@ -19,54 +19,54 @@ export const Workers = [
     },
     {
         name: "Dev CMS",
-        gain: 10, // $37/h
+        gain: 20, // $37/h
         gainTime: 4,
-        gainStep: 1.1,
+        gainStep: 1.12,
         avatar: "/images/dev_cms.png",
         task: "Elementoring WP",
         cost: 1000,
     },
     {
         name: "UX",
-        gain: 15, // $47/h
+        gain: 30, // $47/h
         gainTime: 5,
-        gainStep: 1.11,
+        gainStep: 1.13,
         avatar: "/images/ux.png",
         task: "User storying",
         cost: 5000,
     },
     {
         name: "Dev Back",
-        gain: 50, // $47/h
+        gain: 100, // $47/h
         gainTime: 10,
-        gainStep: 1.11,
+        gainStep: 1.25,
         avatar: "/images/back.png",
         task: "Node JSing",
         cost: 10000,
     },
     {
         name: "Dev FullStack",
-        gain: 100, // $47/h
+        gain: 200, // $47/h
         gainTime: 12,
-        gainStep: 1.11,
+        gainStep: 1.42,
         avatar: "/images/fullstack.png",
         task: "Juggling",
         cost: 25000,
     },
     {
         name: "Agency",
-        gain: 1000, // $47/h
+        gain: 2000, // $47/h
         gainTime: 15,
-        gainStep: 1.11,
+        gainStep: 1.50,
         avatar: "/images/agency.png",
         task: "Acquiring Clients",
         cost: 100000,
     },
     {
         name: "Cloud",
-        gain: 10000, // $47/h
+        gain: 25000, // $47/h
         gainTime: 30,
-        gainStep: 1.11,
+        gainStep: 2,
         avatar: "/images/cloud.png",
         task: "Jeff Bossing",
         cost: 1000000,

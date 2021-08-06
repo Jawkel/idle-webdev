@@ -11,6 +11,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
             nb: 1,
             gain: 1,
             gainTime: 1,
+            gainStep: 1.05,
             unlock: true,
             step: 0,
         },
@@ -18,6 +19,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
             nb: 0,
             gain: 4,
             gainTime: 2,
+            gainStep: 1.1,
             unlock: false,
             step: 0,
         },
@@ -25,6 +27,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
             nb: 0,
             gain: 10,
             gainTime: 4,
+            gainStep: 1.12,
             unlock: false,
             step: 0,
         },
@@ -32,6 +35,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
             nb: 0,
             gain: 15,
             gainTime: 5,
+            gainStep: 1.13,
             unlock: false,
             step: 0,
         },
@@ -39,6 +43,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
             nb: 0,
             gain: 50,
             gainTime: 10,
+            gainStep: 1.25,
             unlock: false,
             step: 0,
         },
@@ -46,6 +51,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
             nb: 0,
             gain: 100,
             gainTime: 12,
+            gainStep: 1.42,
             unlock: false,
             step: 0,
         },
@@ -53,6 +59,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
             nb: 0,
             gain: 1000,
             gainTime: 15,
+            gainStep: 1.5,
             unlock: false,
             step: 0,
         },
@@ -60,25 +67,29 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
             nb: 0,
             gain: 1000,
             gainTime: 30,
+            gainStep: 2,
             unlock: false,
             step: 0,
         },
     });
-    const scoreRef = useRef(score);
+    const scoreRef = useRef();
     scoreRef.current = score;
+    const totalRef = useRef();
+    totalRef.current = total;
 
     useEffect(() => {
         let subtotal = 0;
         for (const worker in workersStats) {
-            subtotal += workersStats[worker].nb * workersStats[worker].gain / workersStats[worker].gainTime * Steps[workersStats[worker].step].timeDiviser;
+            subtotal += workersStats[worker].nb * workersStats[worker].gain / workersStats[worker].gainTime * Steps[workersStats[worker].step].timeDiviser * Math.pow(workersStats[worker].gainStep, (workersStats[worker].step + 1));
         }
+        console.log(subtotal);
         setTotal(subtotal);
     }, [workersStats]);
 
     useEffect(() => {
         timer && clearInterval(timer);
         // Gaining half passively
-        const _timer = setInterval(() => incrementScore(scoreRef.current, total / 8), 250);
+        const _timer = setInterval(() => incrementScore(scoreRef.current, totalRef.current / 20), 100);
         setTimer(_timer);
     }, [total]);
 
