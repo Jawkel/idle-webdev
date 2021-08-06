@@ -9,7 +9,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
     const [workersStats, setWorkersStats] = useState({
         UI: {
             nb: 1,
-            gain: 1,
+            gain: 2,
             gainTime: 1,
             gainStep: 1.05,
             unlock: true,
@@ -17,7 +17,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
         },
         "Dev Front": {
             nb: 0,
-            gain: 4,
+            gain: 10,
             gainTime: 2,
             gainStep: 1.1,
             unlock: false,
@@ -25,7 +25,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
         },
         "Dev CMS": {
             nb: 0,
-            gain: 10,
+            gain: 45,
             gainTime: 4,
             gainStep: 1.12,
             unlock: false,
@@ -33,7 +33,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
         },
         UX: {
             nb: 0,
-            gain: 15,
+            gain: 100,
             gainTime: 5,
             gainStep: 1.13,
             unlock: false,
@@ -41,7 +41,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
         },
         "Dev Back": {
             nb: 0,
-            gain: 50,
+            gain: 500,
             gainTime: 10,
             gainStep: 1.25,
             unlock: false,
@@ -49,7 +49,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
         },
         "Dev FullStack": {
             nb: 0,
-            gain: 100,
+            gain: 1000,
             gainTime: 12,
             gainStep: 1.42,
             unlock: false,
@@ -57,7 +57,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
         },
         Agency: {
             nb: 0,
-            gain: 1000,
+            gain: 10000,
             gainTime: 15,
             gainStep: 1.5,
             unlock: false,
@@ -65,7 +65,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
         },
         Cloud: {
             nb: 0,
-            gain: 1000,
+            gain: 100000,
             gainTime: 30,
             gainStep: 2,
             unlock: false,

@@ -10,7 +10,7 @@ export const Workers = [
     },
     {
         name: "Dev Front",
-        gain: 8, // $35/h
+        gain: 10, // $35/h
         gainTime: 2,
         gainStep: 1.1,
         avatar: "/images/dev_front.png",
@@ -19,7 +19,7 @@ export const Workers = [
     },
     {
         name: "Dev CMS",
-        gain: 20, // $37/h
+        gain: 45, // $37/h
         gainTime: 4,
         gainStep: 1.12,
         avatar: "/images/dev_cms.png",
@@ -28,7 +28,7 @@ export const Workers = [
     },
     {
         name: "UX",
-        gain: 30, // $47/h
+        gain: 100, // $47/h
         gainTime: 5,
         gainStep: 1.13,
         avatar: "/images/ux.png",
@@ -37,7 +37,7 @@ export const Workers = [
     },
     {
         name: "Dev Back",
-        gain: 100, // $47/h
+        gain: 500, // $47/h
         gainTime: 10,
         gainStep: 1.25,
         avatar: "/images/back.png",
@@ -46,7 +46,7 @@ export const Workers = [
     },
     {
         name: "Dev FullStack",
-        gain: 200, // $47/h
+        gain: 1000, // $47/h
         gainTime: 12,
         gainStep: 1.42,
         avatar: "/images/fullstack.png",
@@ -55,7 +55,7 @@ export const Workers = [
     },
     {
         name: "Agency",
-        gain: 2000, // $47/h
+        gain: 10000, // $47/h
         gainTime: 15,
         gainStep: 1.50,
         avatar: "/images/agency.png",
@@ -64,7 +64,7 @@ export const Workers = [
     },
     {
         name: "Cloud",
-        gain: 25000, // $47/h
+        gain: 100000, // $47/h
         gainTime: 30,
         gainStep: 2,
         avatar: "/images/cloud.png",
