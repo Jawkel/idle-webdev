@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/macro";
 
-const Header = ({score, buy, setBuy}) => {
+const Header = ({score, buy, setBuy, scorePerSec}) => {
     const buyRange = [1, 10, 50, "Max"];
 
     const handleBuy = () => {
@@ -13,6 +13,7 @@ const Header = ({score, buy, setBuy}) => {
     return (
         <HeaderStyled>
             <h2>${score}</h2>
+            <h2>$/sec: {scorePerSec * 10}</h2>
             <button onClick={handleBuy}>Buy {buy}</button>
         </HeaderStyled>
     );

@@ -3,8 +3,8 @@ import styled from "styled-components/macro";
 import {Workers, Steps} from "../../Workers";
 import Worker from "./Worker";
 
-const Main = ({score, incrementScore, decrementScore, buy}) => {
-    const [total, setTotal] = useState(1);
+const Main = ({score, incrementScore, scorePerSec, setScorePerSec, decrementScore, buy}) => {
+
     const [timer, setTimer] = useState(null);
     const [workersStats, setWorkersStats] = useState({
         UI: {
@@ -12,6 +12,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
             gain: 2,
             gainTime: 1,
             gainStep: 1.05,
+            cost: 25,
             unlock: true,
             step: 0,
         },
@@ -20,6 +21,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
             gain: 10,
             gainTime: 2,
             gainStep: 1.1,
+            cost: 100,
             unlock: false,
             step: 0,
         },
@@ -28,6 +30,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
             gain: 45,
             gainTime: 4,
             gainStep: 1.12,
+            cost: 1000,
             unlock: false,
             step: 0,
         },
@@ -36,6 +39,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
             gain: 100,
             gainTime: 5,
             gainStep: 1.13,
+            cost: 5000,
             unlock: false,
             step: 0,
         },
@@ -44,6 +48,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
             gain: 500,
             gainTime: 10,
             gainStep: 1.25,
+            cost: 10000,
             unlock: false,
             step: 0,
         },
@@ -52,6 +57,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
             gain: 1000,
             gainTime: 12,
             gainStep: 1.42,
+            cost: 25000,
             unlock: false,
             step: 0,
         },
@@ -60,6 +66,7 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
             gain: 10000,
             gainTime: 15,
             gainStep: 1.5,
+            cost: 100000,
             unlock: false,
             step: 0,
         },
@@ -68,14 +75,15 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
             gain: 100000,
             gainTime: 30,
             gainStep: 2,
+            cost: 1000000,
             unlock: false,
             step: 0,
         },
     });
     const scoreRef = useRef();
     scoreRef.current = score;
-    const totalRef = useRef();
-    totalRef.current = total;
+    const scorePerSecRef = useRef();
+    scorePerSecRef.current = scorePerSec;
 
     useEffect(() => {
         let subtotal = 0;
@@ -83,15 +91,15 @@ const Main = ({score, incrementScore, decrementScore, buy}) => {
             subtotal += workersStats[worker].nb * workersStats[worker].gain / workersStats[worker].gainTime * Steps[workersStats[worker].step].timeDiviser * Math.pow(workersStats[worker].gainStep, (workersStats[worker].step + 1));
         }
         console.log(subtotal);
-        setTotal(subtotal);
+        // Gaining half passively on a 100ms timer (/2/10)
+        setScorePerSec(Math.floor(subtotal / 20));
     }, [workersStats]);
 
     useEffect(() => {
         timer && clearInterval(timer);
-        // Gaining half passively
-        const _timer = setInterval(() => incrementScore(scoreRef.current, totalRef.current / 20), 100);
+        const _timer = setInterval(() => incrementScore(scoreRef.current, scorePerSecRef.current), 100);
         setTimer(_timer);
-    }, [total]);
+    }, [scorePerSec]);
 
     const unlock = (name, stat) => {
         setWorkersStats({...workersStats, [name]: stat});

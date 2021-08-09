@@ -6,6 +6,7 @@ import Main from "./components/Main/Main";
 
 function App() {
     const [score, setScore] = useState(new Decimal(0));
+    const [scorePerSec, setScorePerSec] = useState(new Decimal(0));
     const [buy, setBuy] = useState(1);
 
 
@@ -19,10 +20,12 @@ function App() {
     };
     return (
         <div className="App">
-            <Header score={score.toString()} buy={buy} setBuy={setBuy}/>
+            <Header score={score.toString()} buy={buy} setBuy={setBuy} scorePerSec={scorePerSec}/>
             <Main
                 score={score}
                 buy={buy}
+                scorePerSec={scorePerSec}
+                setScorePerSec={setScorePerSec}
                 incrementScore={incrementScore}
                 decrementScore={decrementScore}
             />
