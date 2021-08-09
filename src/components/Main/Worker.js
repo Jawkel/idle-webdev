@@ -2,6 +2,8 @@ import React, {useState, useRef, useEffect} from "react";
 import styled from "styled-components/macro";
 import Decimal from "break_infinity.js";
 import {Steps} from "../../Workers";
+import {Box, Button, Paper} from "@material-ui/core";
+
 
 const Worker = ({
                     worker,
@@ -33,63 +35,57 @@ const Worker = ({
     scoreRef.current = score;
 
     return (
-        <WorkerStyled>
-            <Img
-                onClick={() => {
-                    if (click || (stats && stats.nb === 0)) return;
-                    setClick(true);
-                    setTimeout(() => {
-                        incrementScore(scoreRef.current, worker.gain * stats.nb);
-                        setClick(false);
-                    }, (worker.gainTime / Steps[stats.step].timeDiviser) * 1000);
-                }}
-            >
-                <Title>
-                    {Steps[stats.step].title} {worker.name}
-                </Title>
-                <Nb>
-                    {stats.nb} / {Steps[stats.step].limit}
-                </Nb>
-                <img src={worker.avatar} alt="Worker" width="100%" height="100%"/>
-            </Img>
-            <Operation>
-                <Task
-                    className={click ? "working" : ""}
-                    timing={worker.gainTime / Steps[stats.step].timeDiviser}
-                >
-                    {worker.task}
-                </Task>
-                <Buy
-                    canBuy={
-                        price <= score &&
-                        stats.step < 4 &&
-                        stats.nb !== Steps[stats.step].limit
-                    }
-                    disabled={
-                        price > score ||
-                        (stats.step === 4 && stats.nb === Steps[stats.step].limit)
-                    }
+        <Paper variant="outlined" elevation={10}>
+            <Box display="flex" alignItems="center" m={3}>
+                <Img
                     onClick={() => {
-                        buyWorker(worker.name, worker.cost, buyDisplay);
+                        if (click || (stats && stats.nb === 0)) return;
+                        setClick(true);
+                        setTimeout(() => {
+                            incrementScore(scoreRef.current, worker.gain * stats.nb);
+                            setClick(false);
+                        }, (worker.gainTime / Steps[stats.step].timeDiviser) * 1000);
                     }}
                 >
-                    <span>Buy {buyDisplay}</span>
-                    <span>${price}</span>
-                </Buy>
-            </Operation>
-        </WorkerStyled>
+                    <Title>
+                        {Steps[stats.step].title} {worker.name}
+                    </Title>
+                    <Nb>
+                        {stats.nb} / {Steps[stats.step].limit}
+                    </Nb>
+                    <img src={worker.avatar} alt="Worker" width="100%" height="100%"/>
+                </Img>
+                <Operation>
+                    <Task
+                        className={click ? "working" : ""}
+                        timing={worker.gainTime / Steps[stats.step].timeDiviser}
+                    >
+                        {worker.task}
+                    </Task>
+                    <Button variant="contained" fullWidth
+                            disabled={price > score || (stats.step === 4 && stats.nb === Steps[stats.step].limit)}
+                            color={price <= score && stats.step <= 4 && stats.nb !== Steps[stats.step].limit ? "primary" : "secondary"}
+                            onClick={() => {
+                                buyWorker(worker.name, worker.cost, buyDisplay);
+                            }}
+                            style={{display: "flex", justifyContent: "space-around"}}
+                    ><span>Buy {buyDisplay}</span>
+                        <span>${price}</span></Button>
+                </Operation>
+            </Box>
+        </Paper>
     );
 };
 
 export default Worker;
 
-const WorkerStyled = styled.div`
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  margin-left: 2rem;
-  margin-bottom: 1rem;
-`;
+// const WorkerStyled = styled.div`
+//   position: relative;
+//   display: flex;
+//   align-items: flex-end;
+//   margin-left: 2rem;
+//   margin-bottom: 1rem;
+// `;
 
 const Img = styled.div`
   /* display: block; */
@@ -116,7 +112,7 @@ const Task = styled.div`
   position: relative;
 
   &:after {
-    background: #000;
+    background: #303F9E;
     content: "";
     height: 42px;
     left: -101%;
@@ -124,7 +120,7 @@ const Task = styled.div`
     position: absolute;
     transition: all 0s;
     width: 250px;
-    z-index: -10;
+    z-index: 5;
   }
 
   &.working {
@@ -153,13 +149,13 @@ const Nb = styled.span`
   transform: translateX(-50%);
 `;
 
-const Buy = styled.button`
-  display: flex;
-  width: 100%;
-  justify-content: space-around;
-  margin-top: 0.25rem;
-  padding: 0.25rem 0;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  background-color: ${(props) => (props.canBuy ? "green" : "red")};
-  cursor: pointer;
-`;
+// const Buy = styled.button`
+//   display: flex;
+//   width: 100%;
+//   justify-content: space-around;
+//   margin-top: 0.25rem;
+//   padding: 0.25rem 0;
+//   border: 1px solid rgba(0, 0, 0, 0.2);
+//   background-color: ${(props) => (props.canBuy ? "green" : "red")};
+//   cursor: pointer;
+// `;

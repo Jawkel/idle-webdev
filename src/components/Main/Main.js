@@ -2,8 +2,9 @@ import React, {useState, useEffect, useRef} from "react";
 import styled from "styled-components/macro";
 import {Workers, Steps} from "../../Workers";
 import Worker from "./Worker";
+import {Grid} from "@material-ui/core";
 
-const Main = ({score, incrementScore, scorePerSec, setScorePerSec, decrementScore, buy}) => {
+const Main = ({score, incrementScore, scorePerSec, incrementScorePerSec, decrementScore, buy}) => {
 
     const [timer, setTimer] = useState(null);
     const [workersStats, setWorkersStats] = useState({
@@ -92,7 +93,7 @@ const Main = ({score, incrementScore, scorePerSec, setScorePerSec, decrementScor
         }
         console.log(subtotal);
         // Gaining half passively on a 100ms timer (/2/10)
-        setScorePerSec(Math.floor(subtotal / 20));
+        incrementScorePerSec(Math.floor(subtotal / 20));
     }, [workersStats]);
 
     useEffect(() => {
@@ -122,28 +123,29 @@ const Main = ({score, incrementScore, scorePerSec, setScorePerSec, decrementScor
     };
 
     return (
-        <MainStyled>
+        <Grid container justifyContent="center">
             {Workers.filter(
                 (worker) => score.gte(worker.cost) || workersStats[worker.name].unlock
             ).map((worker, idx) => (
-                <Worker
-                    key={idx}
-                    buy={buy}
-                    score={score}
-                    worker={worker}
-                    unlock={unlock}
-                    stats={workersStats[worker.name]}
-                    buyWorker={buyWorker}
-                    incrementScore={incrementScore}
-                />
+                <Grid key={idx} item xs={12} lg={10}>
+                    <Worker
+                        buy={buy}
+                        score={score}
+                        worker={worker}
+                        unlock={unlock}
+                        stats={workersStats[worker.name]}
+                        buyWorker={buyWorker}
+                        incrementScore={incrementScore}
+                    />
+                </Grid>
             ))}
-        </MainStyled>
+        </Grid>
     );
 };
 
 export default Main;
 
-const MainStyled = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+// const MainStyled = styled.div`
+//   display: flex;
+//   flex-direction: column;
+// `;

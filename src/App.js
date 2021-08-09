@@ -11,8 +11,10 @@ function App() {
 
 
     const incrementScore = (score2, gain) => {
-        console.log(gain);
         setScore(score2.plus(gain).floor());
+    };
+    const incrementScorePerSec = (gain) => {
+        setScorePerSec(scorePerSec.plus(gain).floor());
     };
 
     const decrementScore = (price) => {
@@ -20,12 +22,12 @@ function App() {
     };
     return (
         <div className="App">
-            <Header score={score.toString()} buy={buy} setBuy={setBuy} scorePerSec={scorePerSec}/>
+            <Header score={score} buy={buy} setBuy={setBuy} scorePerSec={scorePerSec}/>
             <Main
                 score={score}
                 buy={buy}
                 scorePerSec={scorePerSec}
-                setScorePerSec={setScorePerSec}
+                incrementScorePerSec={incrementScorePerSec}
                 incrementScore={incrementScore}
                 decrementScore={decrementScore}
             />
